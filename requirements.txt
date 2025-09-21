@@ -1,0 +1,10 @@
+
+flask
+
+mysql-connector-python
+
+flask_mail
+
+schedule
+
+requests

@@ -1,0 +1,12 @@
+{
+    "branchID": "6H2NC153JZN59AE",
+    "branchName": "Main",
+    "category": "clinic",
+    "deviceID": "PJB2XK6G9R",
+    "deviceType": "branch_connector",
+    "dispensaryID": "ASK65TP",
+    "oldIP": "13.246.149.230",
+    "organisation": "MOTAYO HOSPITAL LIMITED",
+    "secretKey": "32830065261121424278",
+    "newIP": "13.246.149.230"
+}

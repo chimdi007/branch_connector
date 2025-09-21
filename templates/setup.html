@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Device Activation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f9fc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .form-container {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 350px;
+      }
+      h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: #333;
+      }
+      label {
+        display: block;
+        margin-top: 1rem;
+        font-weight: bold;
+        color: #444;
+      }
+      input {
+        width: 100%;
+        padding: 0.5rem;
+        margin-top: 0.3rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      }
+      button {
+        margin-top: 1.5rem;
+        width: 100%;
+        padding: 0.75rem;
+        background: #007bff;
+        border: none;
+        color: #fff;
+        font-size: 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>Device Activation</h2>
+      <form action="device_activation" method="POST">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required />
+
+        <label for="dispensaryID">Dispensary ID</label>
+        <input type="text" id="dispensaryID" name="dispensaryID" required />
+
+        <label for="branchID">Branch ID</label>
+        <input type="text" id="branchID" name="branchID" required />
+
+        <button type="submit">Activate Device</button>
+        <p>PrescribeNG LTD</p>
+      </form>
+    </div>
+  </body>
+</html>
