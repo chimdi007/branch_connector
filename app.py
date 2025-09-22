@@ -8,6 +8,7 @@ from datetime import datetime
 import requests
 import logging
 import os
+import sys
 from flask_mail import Mail, Message
 
 
@@ -18,7 +19,19 @@ app.secret_key = os.urandom(24)
 # Initialize logger
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-file_path = 'config.txt'
+
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works in dev and PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores files here
+        base_path = sys._MEIPASS
+    except AttributeError:
+        # Running in normal Python environment
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
+file_path = resource_path("config.txt")
 
 """
 Device is blank at first
@@ -26,7 +39,7 @@ Upon opening connector device, if device is not connected to any organisation, a
 """
 @app.route('/')
 def index():
-    file_path = 'config.txt'
+    global file_path
     config = {}
 
     try:
@@ -55,7 +68,8 @@ def index():
 @app.route('/device_activation', methods=['POST'])
 def device_activation():
     global file_path
-    url = "http://127.0.0.1:5002/devices/branch_connector_activation"
+    #url = "http://127.0.0.1:5002/devices/branch_connector_activation"
+    url = "https://api.prescribe.ng/devices/branch_connector_activation"
     try:
         data = request.form.to_dict()
         print("Data recieved: ", data)
@@ -86,9 +100,9 @@ def device_activation():
 # Function to perform IP check at intervals, catch changes in public ipv4 and reconnect branch to PrescribeNG spine
 #This service is only for small centers who can not afford a static ip address
 def get_public_ip():
-    file_path = 'config.txt'
-    #url = "https://api.prescribe.ng/devices/update_ip"
-    url = "http://127.0.0.1:5002/devices/update_ip"
+    global file_path
+    url = "https://api.prescribe.ng/devices/update_ip"
+    #url = "http://127.0.0.1:5002/devices/update_ip"
     
     #print("Checking ip...")
     
@@ -173,4 +187,4 @@ if __name__ == '__main__':
     scheduler_thread = threading.Thread(target=start_scheduler)
     scheduler_thread.daemon = True  # Allows the program to exit if only daemon threads are left
     scheduler_thread.start()
-    app.run(debug=True, host='0.0.0.0', port=4050)
+    app.run(debug=False, host='0.0.0.0', port=4050, use_reloader=False)
