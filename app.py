@@ -9,8 +9,6 @@ import requests
 import logging
 import os
 import sys
-from flask_mail import Mail, Message
-
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -187,4 +185,4 @@ if __name__ == '__main__':
     scheduler_thread = threading.Thread(target=start_scheduler)
     scheduler_thread.daemon = True  # Allows the program to exit if only daemon threads are left
     scheduler_thread.start()
-    app.run(debug=False, host='0.0.0.0', port=4050, use_reloader=False)
+    app.run(debug=False, host='127.0.0.1', port=4050, use_reloader=False)
