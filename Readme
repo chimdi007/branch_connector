@@ -1,0 +1,9 @@
+Compile the app using
+
+rm -rf build dist
+pyinstaller --onefile \
+    --add-data "config.txt:." \
+    --add-data "templates:templates" \
+    app.py
+
+

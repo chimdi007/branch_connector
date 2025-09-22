@@ -1,51 +1,38 @@
-# app.spec
 # -*- mode: python ; coding: utf-8 -*-
 
-import os
-
-block_cipher = None
-
-project_path = os.path.abspath('.')
-
-# Include templates folder and files individually
-datas = [
-    ('requirements.txt', '.'),        # include requirements.txt
-    ('config.txt', '.'),              # include config.txt
-    ('templates/index.html', 'templates')  # include template file(s)
-]
 
 a = Analysis(
     ['app.py'],
-    pathex=[project_path],
+    pathex=[],
     binaries=[],
-    datas=datas,
-    hiddenimports=[
-        '_socket',
-        '_ssl',
-        '_hashlib',
-        '_multiprocessing',  # multiprocessing runtime
-        'selectors',
-        'errno',
-    ],
+    datas=[('config.txt', '.'), ('templates', 'templates')],
+    hiddenimports=[],
     hookspath=[],
+    hooksconfig={},
     runtime_hooks=[],
-    excludes=[]
+    excludes=[],
+    noarchive=False,
+    optimize=0,
 )
-
-pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
+pyz = PYZ(a.pure)
 
 exe = EXE(
     pyz,
     a.scripts,
     a.binaries,
-    a.zipfiles,
     a.datas,
     [],
-    name='branch_connector',
+    name='app',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
+    upx_exclude=[],
+    runtime_tmpdir=None,
     console=True,
-    onefile=True
+    disable_windowed_traceback=False,
+    argv_emulation=False,
+    target_arch=None,
+    codesign_identity=None,
+    entitlements_file=None,
 )
