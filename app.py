@@ -114,7 +114,7 @@ def get_public_ip():
     if not config:
         return #terminate if no configurations exists yet
     
-    old_ip = config.get('oldIP', '')
+    old_ip = config.get('oldIP', None)
     
     try:
         result = subprocess.run(['curl', '-4', 'ifconfig.me'], capture_output=True, text=True)
@@ -123,22 +123,25 @@ def get_public_ip():
             if new_ip == old_ip:
                 return #Just discontinue process if new IP is equal to old IP
         
-        #If ipv4 change is detected, Update config and make an api call to prescribespine to reconnect branch. 
-        #print("New IP: ", new_ip)  
-        config['newIP'] = new_ip
+            #If ipv4 change is detected, Update config and make an api call to prescribespine to reconnect branch. 
+            #print("New IP: ", new_ip)  
+            config['newIP'] = new_ip
+            
+            response = requests.post(url, json=config)
+            
+            #Only update config.txt if response is positive
+            if response.status_code == 200:
+                config['oldIP'] = new_ip
+                with open(file_path, 'w') as file:
+                    json.dump(config, file, indent=4)
+            
+            #Clear device and set it to dafault state if status code is 401
+            elif response.status_code in [401, 403]:
+                with open(file_path, 'w') as file:
+                    json.dump({}, file, indent=4)
         
-        response = requests.post(url, json=config)
-        
-        #Only update config.txt if response is positive
-        if response.status_code == 200:
-            config['oldIP'] = new_ip
-            with open(file_path, 'w') as file:
-                json.dump(config, file, indent=4)
-        
-        #Clear device and set it to dafault state if status code is 401
-        elif response.status_code in [401, 403]:
-            with open(file_path, 'w') as file:
-                json.dump({}, file, indent=4)
+        else:
+            print("Return Code: ", result.returncode)
                 
     except Exception as e:
         print(f"Error retrieving public IPv4: {e}")
