@@ -48,7 +48,7 @@ def index():
         # If file is missing or invalid JSON, treat as no setup
         print(f"Decode error: ")
         config = {}
-    print("COnfig: ", config)
+    #print("COnfig: ", config)
     # If the device is already linked to an organisation (dispensaryID present)
     if config.get('dispensaryID', ''):
         # Do not expose deviceID to the UI
@@ -136,7 +136,7 @@ def get_public_ip():
                     json.dump(config, file, indent=4)
             
             #Clear device and set it to dafault state if status code is 401
-            elif response.status_code in [401, 403]:
+            elif response.status_code in [400, 401, 403]:
                 with open(file_path, 'w') as file:
                     json.dump({}, file, indent=4)
         
