@@ -2,6 +2,7 @@ Compile the app using
 
 rm -rf build dist
 pyinstaller --onefile \
+    --icon=logo.ico \
     --add-data "config.txt:." \
     --add-data "templates:templates" \
     app.py
