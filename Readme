@@ -1,10 +1,18 @@
 Compile the app using
 
 rm -rf build dist
+
+#For MacOS installation
 pyinstaller --onefile \
     --icon=logo.ico \
     --add-data "config.txt:." \
     --add-data "templates:templates" \
     app.py
 
+#For windwos compillation
+pyinstaller --onefile `
+    --icon=logo.ico `
+    --add-data "config.txt;." `
+    --add-data "templates;templates" `
+    app.py
 
