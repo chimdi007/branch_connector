@@ -70,7 +70,7 @@ def device_activation():
     url = "https://api.prescribe.ng/devices/branch_connector_activation"
     try:
         data = request.form.to_dict()
-        print("Data recieved: ", data)
+        #print("Data recieved: ", data)
         required_fields = ['username', 'password', 'dispensaryID', 'branchID']
         missing_fields = [field for field in required_fields if not data.get(field)]
         if missing_fields:
@@ -124,7 +124,7 @@ def get_public_ip():
                 return #Just discontinue process if new IP is equal to old IP
         
             #If ipv4 change is detected, Update config and make an api call to prescribespine to reconnect branch. 
-            #print("New IP: ", new_ip)  
+            print("Network Change Detected! New IPV4: ", new_ip)  
             config['newIP'] = new_ip
             
             response = requests.post(url, json=config)
@@ -142,6 +142,7 @@ def get_public_ip():
         
         else:
             print("Return Code: ", result.returncode)
+            return
                 
     except Exception as e:
         print(f"Error retrieving public IPv4: {e}")

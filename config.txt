@@ -1,1 +1,12 @@
-{}
+{
+    "branchID": "MSQFHWZCE94DNTH",
+    "branchName": "Main",
+    "category": "hospital",
+    "deviceID": "QM27WNPWT1",
+    "deviceType": "branch_connector",
+    "dispensaryID": "HTF8T2U",
+    "oldIP": "86.138.30.176",
+    "organisation": "EBUBECHUKWU MEDICAL CLINIC AND MATERNITY",
+    "secretKey": "45965474184448884795",
+    "newIP": "86.138.30.176"
+}
